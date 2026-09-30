@@ -1,0 +1,75 @@
+app/src/screens/Done.tsx
+  s_0ecb15b90864aa::t_804f53ac9513fb 1-33
+app/index.html
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-4,17-22
+  s_0ecb15b90864aa::t_ccd6badafad738 5-16
+app/.oxlintrc.json
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-8
+app/package.json
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-27
+app/src/screens/Questions.tsx
+  s_0ecb15b90864aa::t_5c16016755dfbd 59
+  s_0ecb15b90864aa::t_0b91084cfe96f9 1-58,60-76
+app/src/screens/Intro.tsx
+  s_0ecb15b90864aa::t_5451882a56d034 1-70
+app/vite.config.ts
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-2,4-5,41
+  s_0ecb15b90864aa::t_ccd6badafad738 3,6-40
+app/src/main.tsx
+  s_0ecb15b90864aa::t_27944680750cf8 3-4,6,10-14
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-2,5,7-9,15-16
+app/tsconfig.json
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-7
+mockup/index.html
+  s_0ecb15b90864aa::t_06f31f718e8d91 1-23,25-53,55-565
+  s_0ecb15b90864aa::t_45dde33e2b0e16 24,54
+app/.gitignore
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-24
+app/src/data.ts
+  s_0ecb15b90864aa::t_d3f761051ce946 1-210
+app/src/App.tsx
+  s_0ecb15b90864aa::t_f2d8b0692087d5 1-10,12-15,17,20-25,30-52
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 11,16,18-19,26-29
+app/src/screens/Insurance.tsx
+  s_0ecb15b90864aa::t_f3a475aa505068 1-79
+app/src/screens/Score.tsx
+  s_0ecb15b90864aa::t_b462f0f9e8ecaf 1-232
+app/src/index.css
+  s_0ecb15b90864aa::t_0201198758fac7 2-7,9-13,15-19,21-25,28-35,37-43,45-47,49-71,73-236
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1,8,14,20,26-27,36,44,48,72
+app/README.md
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 2,4,10,12,14,16
+  s_0ecb15b90864aa::t_c3b6f704613b67 1,3,5-9,11,13,15,17-19
+app/tsconfig.app.json
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-26
+app/public/favicon.svg
+  s_0ecb15b90864aa::t_ccd6badafad738 1-6
+app/src/assets/sprite.svg
+  s_0ecb15b90864aa::t_b38cd1bc3b6c68 1-29
+app/src/screens/Home.tsx
+  s_0ecb15b90864aa::t_2dd51948ff5045 1-67
+app/tsconfig.node.json
+  s_0ecb15b90864aa::t_d4c6612ffce3f8 1-23
+app/src/state.tsx
+  s_0ecb15b90864aa::t_0f8ca2e7615efc 1-79
+app/src/components/ui.tsx
+  s_0ecb15b90864aa::t_57066bb79947d9 1-57
+app/package-lock.json
+  s_0ecb15b90864aa::t_8a961c6401956f 1-6625
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f0e33fff0065649f410a3c9938d6186680a2ecc0",
+  "prompts": {},
+  "sessions": {
+    "s_0ecb15b90864aa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ebcb984d-9769-4725-8dea-f6c1bfdc84e4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Jelle De geest <jelledegeest@Jelles-MacBook-Pro.local>"
+    }
+  }
+}
