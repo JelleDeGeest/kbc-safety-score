@@ -41,14 +41,16 @@ export default function Score() {
     .sort((a, b) => p.factors[a.factor] - p.factors[b.factor])
   const done = ACTIONS.filter(a => p.doneActions.includes(a.id))
   const possible = Math.min(100 - p.score, p.breachImpact + open.reduce((s, a) => s + actionPoints(a, p.factors), 0))
-  const articles = [...ARTICLES].sort((a, b) => p.factors[a.factor] - p.factors[b.factor])
+  const audience = p.answers.household === 0 ? 'children' : p.answers.household === 1 ? 'elderly' : null
+  const articles = ARTICLES.filter(a => !a.audience || a.audience === audience)
+    .sort((a, b) => Number(!!b.audience) - Number(!!a.audience) || p.factors[a.factor] - p.factors[b.factor])
   const discount = discountFor(p.score)
 
   const show = (t: Tab) => tab === 'overview' || tab === t
 
   return (
     <>
-      <TopBar title="Cyber Safety Score" />
+      <TopBar title="KBC Safety Score" />
       <div className="tabs">
         {(['overview', 'tips', 'protection'] as Tab[]).map(t => (
           <button key={t} className={tab === t ? 'on' : ''} onClick={() => setTab(t)}>{t[0].toUpperCase() + t.slice(1)}</button>
@@ -61,7 +63,10 @@ export default function Score() {
           {tab === 'overview' && (
             <>
               <div className="hero">
-                <div className="lbl">Your Cyber Safety Score {!p.completed && <span className="pill est">Estimated</span>}</div>
+                <div className="lbl row between">
+                  <span>Your Safety Score {!p.completed && <span className="pill est">Estimated</span>}</span>
+                  <Link to="/cyber/intro" className="pill est">Accuracy {p.accuracy}%</Link>
+                </div>
                 <div className="gauge">
                   <svg width="220" height="124" viewBox="0 0 220 124" aria-hidden="true">
                     <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stopColor="#F26B5B" /><stop offset=".5" stopColor="#F5B840" /><stop offset="1" stopColor="#5FD08E" /></linearGradient></defs>
@@ -224,7 +229,7 @@ export default function Score() {
 }
 
 const HOW_IT_WORKS: Article = {
-  id: 'how', factor: 'login', title: 'How is your score calculated?', meta: 'Cyber Safety Score', icon: 'shield',
+  id: 'how', factor: 'login', title: 'How is your score calculated?', meta: 'Safety Score', icon: 'shield',
   bg: 'linear-gradient(135deg,#DDF0FB,#B9E1F7)',
   body: [
     'Your score combines five factors: log-in security, passwords, online shopping, online exposure and your devices & network.',

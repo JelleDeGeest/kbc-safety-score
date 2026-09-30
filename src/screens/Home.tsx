@@ -39,7 +39,7 @@ export default function Home() {
           <BreachAlert compact />
           {hasScore ? (
             <Link to="/cyber/score" className="feature-tip">
-              <span className="pill" style={{ background: 'rgba(255,255,255,.2)', color: '#fff' }}>Cyber Safety Score</span>
+              <span className="pill" style={{ background: 'rgba(255,255,255,.2)', color: '#fff' }}>Safety Score</span>
               <h4>{score}/100 · {scoreLabel(score)}</h4>
               <div className="mini-meter"><i style={{ width: `${score}%` }} /></div>
               <p>See how you can raise your score.</p>
@@ -50,7 +50,7 @@ export default function Home() {
             <Link to="/cyber" className="feature-tip ring-pulse">
               <span className="pill new">New</span>
               <h4>How cyber-safe are you?</h4>
-              <p>Get your personal Cyber Safety Score in just 2 minutes.</p>
+              <p>Get your personal Safety Score in just 2 minutes.</p>
               <span className="btn">Check my score</span>
               <Icon name="shield" size={96} className="shield" />
             </Link>

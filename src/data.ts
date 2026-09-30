@@ -79,6 +79,15 @@ export const KNOWN_FACTS = [
   { title: 'No fraud reports in the last 2 years', sub: '' },
 ]
 
+export const DATA_SOURCES = [
+  { id: 'katecoins', name: 'Kate Coins', sub: 'Which partner webshops and services you use', icon: 'wallet' },
+  { id: 'bolero', name: 'Bolero', sub: 'Your investment platform log-ins and activity', icon: 'pig' },
+]
+
+export function accuracy(answered: number, sources: number) {
+  return Math.min(100, 40 + Math.round((answered / QUESTIONS.length) * 42) + sources * 9)
+}
+
 export const FACTORS: { id: FactorId; label: string; icon: string; source: (a: Answers) => string }[] = [
   { id: 'login', label: 'Log-in security', icon: 'id', source: () => 'itsme active · from KBC data' },
   { id: 'passwords', label: 'Passwords', icon: 'key', source: a => answerLabel(a, 'passwords') ?? 'Estimated' },
@@ -99,9 +108,27 @@ export const ACTIONS: Action[] = [
   { id: 'wifi', factor: 'devices', boost: 25, title: "Change your router's default password", sub: 'Guide for Telenet, Proximus & Orange', icon: 'wifi' },
 ]
 
-export type Article = { id: string; factor: FactorId; title: string; meta: string; icon: string; bg: string; tag?: string; body: string[] }
+export type Article = { id: string; factor: FactorId; audience?: 'children' | 'elderly'; title: string; meta: string; icon: string; bg: string; tag?: string; body: string[] }
 
 export const ARTICLES: Article[] = [
+  {
+    id: 'kids', factor: 'exposure', audience: 'children', title: 'Free skins, fake gift cards: scams that target kids', meta: '4 min read · for parents', icon: 'people',
+    bg: 'linear-gradient(135deg,#E0F2FE,#BAE6FD)', tag: 'For your family',
+    body: [
+      'Scammers reach children through games like Fortnite and Roblox, promising free skins or in-game currency in exchange for a parent\'s card details or an itsme confirmation.',
+      'Agree on one simple rule at home: nobody enters card details or confirms anything without asking first. Set spending limits in app stores and game consoles.',
+      'Talk about it without blame. A child who dares to tell you quickly limits the damage.',
+    ],
+  },
+  {
+    id: 'police', factor: 'exposure', audience: 'elderly', title: 'Fake police at the door: protect your parents', meta: '3 min read · share with family', icon: 'id',
+    bg: 'linear-gradient(135deg,#FDECEC,#F9CFCF)', tag: 'For your family',
+    body: [
+      'Criminals pose as police officers, phone first to say "your bank card was compromised", then come by to "collect it for investigation".',
+      'The real police and KBC will never collect bank cards or ask for a PIN. Tell your parents to never open the door for this, and to call 101 when in doubt.',
+      'Tip: set a daily withdrawal limit on their cards and add yourself as a trusted contact in KBC Mobile.',
+    ],
+  },
   {
     id: 'sms', factor: 'exposure', title: '"Your parcel is waiting": spotting fake SMS', meta: '3 min read', icon: 'chat',
     bg: 'linear-gradient(135deg,#FFE3D6,#FFC7B0)', tag: 'Trending',

@@ -1,17 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Icon, TopBar } from '../components/ui'
-import { KNOWN_FACTS, QUESTIONS } from '../data'
+import { DATA_SOURCES, KNOWN_FACTS, QUESTIONS } from '../data'
 import { useProfile } from '../state'
 
 export default function Intro() {
-  const { answers, skip } = useProfile()
+  const { answers, skip, sources, toggleSource, accuracy } = useProfile()
   const nav = useNavigate()
   const left = QUESTIONS.filter(q => answers[q.id] === undefined).length
   const known = KNOWN_FACTS.length + QUESTIONS.length - left
 
   return (
     <>
-      <TopBar title="Cyber Safety Score" />
+      <TopBar title="KBC Safety Score" />
       <main className="screen">
         <div className="illu">
           <svg width="150" height="104" viewBox="0 0 150 104" aria-hidden="true">
@@ -54,6 +54,21 @@ export default function Intro() {
               </li>
             ))}
           </ul></div>
+
+          <div className="sec-h">
+            <h3 className="h-sm">Connect more data</h3>
+            <span className="pill coin">Accuracy {accuracy}%</span>
+          </div>
+          <div className="card list">
+            {DATA_SOURCES.map(s => (
+              <label className="source" key={s.id}>
+                <span className="fi"><Icon name={s.icon} style={{ color: 'var(--blue)' }} /></span>
+                <div className="fb">{s.name}<small>{s.sub}</small></div>
+                <input type="checkbox" className="switch" checked={sources.includes(s.id)} onChange={() => toggleSource(s.id)} />
+              </label>
+            ))}
+          </div>
+          <p className="src" style={{ margin: '8px 2px 0' }}>Optional. The more you share, the more accurate your score and tips.</p>
 
           <div className="privacy"><Icon name="lock" size={18} style={{ flex: 'none' }} />Your answers are only used to calculate your score and personalise tips. You can change or delete them anytime in your profile settings.</div>
           <Link className="btn" to="/cyber/questions">{left === QUESTIONS.length ? "Let's go · 2 min" : left ? `Continue · ${left} left` : 'Review my answers'}</Link>

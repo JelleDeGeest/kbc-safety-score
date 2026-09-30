@@ -21,7 +21,7 @@ function Placeholder({ title }: { title: string }) {
       <TopBar title={title} back={false} right="none" />
       <main className="screen placeholder">
         <p>Not part of this demo.</p>
-        <Link className="btn sm" to="/cyber">Open Cyber Safety Score</Link>
+        <Link className="btn sm" to="/cyber">Open Safety Score</Link>
       </main>
       <NavBar />
     </>

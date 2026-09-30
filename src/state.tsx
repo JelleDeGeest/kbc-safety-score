@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { BREACH, QUESTIONS, computeFactors, scoreOf, type Answers, type FactorId, type PlanId } from './data'
+import { BREACH, QUESTIONS, accuracy, computeFactors, scoreOf, type Answers, type FactorId, type PlanId } from './data'
 
 type Policy = { plan: PlanId; premium: number; since: string }
-type Profile = { answers: Answers; skipped: boolean; doneActions: string[]; resolvedBreach: string[]; coins: number; policy: Policy | null }
+type Profile = { answers: Answers; skipped: boolean; doneActions: string[]; resolvedBreach: string[]; sources: string[]; coins: number; policy: Policy | null }
 
 const KEY = 'kbc-cyber-profile-v2'
-const EMPTY: Profile = { answers: {}, skipped: false, doneActions: [], resolvedBreach: [], coins: 10, policy: null }
+const EMPTY: Profile = { answers: {}, skipped: false, doneActions: [], resolvedBreach: [], sources: [], coins: 10, policy: null }
 const POLICY_REWARD = 10
 
 function load(): Profile {
@@ -24,6 +24,8 @@ type Ctx = Profile & {
   score: number
   breachOpen: boolean
   breachImpact: number
+  accuracy: number
+  toggleSource: (id: string) => void
   answer: (qid: string, idx: number) => void
   skip: () => void
   completeAction: (id: string) => void
@@ -53,6 +55,8 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
       score,
       breachOpen: BREACH.steps.some(s => !p.resolvedBreach.includes(s.id)),
       breachImpact: scoreOf(computeFactors(p.answers, p.doneActions, allResolved)) - score,
+      accuracy: accuracy(QUESTIONS.filter(q => p.answers[q.id] !== undefined).length, p.sources.length),
+      toggleSource: id => setP(prev => ({ ...prev, sources: prev.sources.includes(id) ? prev.sources.filter(x => x !== id) : [...prev.sources, id] })),
       answer: (qid, idx) => setP(prev => ({ ...prev, answers: { ...prev.answers, [qid]: idx } })),
       skip: () => setP(prev => ({ ...prev, skipped: true })),
       completeAction: id => setP(prev => prev.doneActions.includes(id) ? prev : { ...prev, doneActions: [...prev.doneActions, id] }),

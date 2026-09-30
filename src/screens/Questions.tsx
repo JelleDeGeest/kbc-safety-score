@@ -40,7 +40,7 @@ export default function Questions() {
 
       <main className="screen white" ref={scroller}>
         <div className="chat">
-          <div className="day"><b>Today</b>Kate helps you with your Cyber Safety Score</div>
+          <div className="day"><b>Today</b>Kate helps you with your Safety Score</div>
           <div className="msg"><span className="spacer" /><div className="bub">Hi 👋 A few quick questions and your score is ready.</div></div>
           <div className="msg"><KateBadge size={24} /><div className="bub">There are no wrong answers, so just be honest!</div></div>
 
