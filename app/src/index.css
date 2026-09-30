@@ -234,3 +234,28 @@ h3 { font-size: 18px; font-weight: 700; color: var(--navy) }
 .sheet-hero { height: 110px; border-radius: 10px; display: grid; place-items: center; margin-bottom: 12px }
 @keyframes fade { from { opacity: 0 } }
 @keyframes up { from { transform: translateY(100%) } }
+
+/* breach */
+.pill.danger { background: #FDECEC; color: #C4262C }
+.pill.tag { margin-left: 6px; font-size: 10px; padding: 1px 6px }
+.breach-alert { display: flex; gap: 12px; align-items: center; background: #fff; border: 1.5px solid #F6C3C4; border-left: 4px solid var(--red); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 4px 14px rgba(229, 72, 77, .14); font-size: 13px; color: var(--navy); line-height: 1.4; animation: pop .35s ease-out }
+.breach-alert.compact { margin: 10px 0 0 }
+.breach-alert small { display: block; color: #C4262C; font-weight: 700; font-size: 12px; margin-top: 3px }
+.breach-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px }
+.breach-top b { color: #C4262C; font-size: 12px; text-transform: uppercase; letter-spacing: .04em }
+.breach-ic { width: 38px; height: 38px; border-radius: 50%; background: #FDECEC; color: var(--red); display: grid; place-items: center; flex: none; animation: throb 2s infinite }
+.breach-ic.lg { width: 56px; height: 56px; margin-bottom: 12px }
+@keyframes throb { 50% { box-shadow: 0 0 0 6px rgba(229, 72, 77, .12) } }
+.breach-hero { background: #fff; border-radius: 10px; padding: 18px; box-shadow: var(--shadow); border-top: 4px solid var(--red) }
+.breach-hero h3 { font-size: 19px; line-height: 1.3 }
+.breach-hero p { font-size: 14px; line-height: 1.5; margin: 8px 0 10px }
+.breach-hero.resolved { border-top-color: var(--green-ok) }
+.breach-hero.resolved .breach-ic { background: #E3F4EC; color: var(--green-ok); animation: none }
+.leaked { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.leaked div { background: #fff; border-radius: 8px; padding: 10px; display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--navy); box-shadow: var(--shadow); line-height: 1.25 }
+.step { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line) }
+.step:last-child { border-bottom: 0 }
+.step .btn.sm { flex: none; padding: 6px 12px; font-size: 12px }
+.step.done .fb { color: var(--muted) }
+.step.done .fb small { display: none }
+.step-n { width: 22px; height: 22px; border-radius: 50%; background: #FDECEC; color: #C4262C; font-size: 12px; font-weight: 800; display: grid; place-items: center; flex: none }

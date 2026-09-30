@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon, KateBadge, TopBar } from '../components/ui'
-import { COVERAGE, FACTORS, PLANS, discountFor, eur, type PlanId } from '../data'
+import { BREACH, COVERAGE, FACTORS, PLANS, discountFor, eur, type PlanId } from '../data'
 import { useProfile } from '../state'
 
 export default function Insurance() {
@@ -24,7 +24,7 @@ export default function Insurance() {
               <Icon name="shield" size={42} style={{ color: '#fff', flex: 'none' }} />
               <div>
                 <div className="hero-t">Recommended for you</div>
-                <div className="hero-s">Your weakest spots are {weakest.join(' and ')}, so fraud & identity cover matter most{hasDependants ? ', for your whole household' : ''}.</div>
+                <div className="hero-s">{p.breachOpen && <>Your data was leaked in the {BREACH.name} breach, which raises your risk of identity theft and phishing. </>}Your weakest spots are {weakest.join(' and ')}, so fraud & identity cover matter most{hasDependants ? ', for your whole household' : ''}.</div>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function Insurance() {
             {COVERAGE.map(c => (
               <div className={`cov ${c.family && plan !== 'family' ? 'off' : ''}`} key={c.title}>
                 <Icon name={c.icon} size={22} style={{ flex: 'none' }} />
-                <div className="fb">{c.title}<small>{c.sub}{c.family && plan !== 'family' ? ' · Family plan only' : ''}</small></div>
+                <div className="fb">{c.title}{p.breachOpen && c.breach && <span className="pill danger tag">Relevant after breach</span>}<small>{c.sub}{c.family && plan !== 'family' ? ' · Family plan only' : ''}</small></div>
                 <span className="lim">{c.limit}</span>
               </div>
             ))}

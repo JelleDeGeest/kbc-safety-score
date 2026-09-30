@@ -1,6 +1,7 @@
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import sprite from './assets/sprite.svg?raw'
 import { NavBar, StatusBar, TopBar } from './components/ui'
+import Breach from './screens/Breach'
 import Done from './screens/Done'
 import Home from './screens/Home'
 import Insurance from './screens/Insurance'
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/cyber/intro" element={<Intro />} />
           <Route path="/cyber/questions" element={<Questions />} />
           <Route path="/cyber/score" element={<Score />} />
+          <Route path="/cyber/breach" element={<Breach />} />
           <Route path="/cyber/insurance" element={<Insurance />} />
           <Route path="/cyber/insurance/done" element={<Done />} />
           <Route path="/investments" element={<Placeholder title="Investments" />} />

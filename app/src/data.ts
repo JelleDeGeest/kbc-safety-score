@@ -87,16 +87,16 @@ export const FACTORS: { id: FactorId; label: string; icon: string; source: (a: A
   { id: 'devices', label: 'Devices & network', icon: 'phone', source: a => answerLabel(a, 'updates') ? `Auto-updates: ${answerLabel(a, 'updates')!.toLowerCase()}` : 'Estimated' },
 ]
 
-export type Action = { id: string; factor: FactorId; boost: number; coins: number; title: string; sub: string; icon: string }
+export type Action = { id: string; factor: FactorId; boost: number; title: string; sub: string; icon: string }
 
 // boost is added to the factor (0–100); score impact = boost / number of factors
 export const ACTIONS: Action[] = [
-  { id: 'pwmanager', factor: 'passwords', boost: 45, coins: 3, title: 'Start using a password manager', sub: '5 min · step-by-step guide', icon: 'key' },
-  { id: 'cardlimit', factor: 'shopping', boost: 25, coins: 2, title: 'Lower your online card limit', sub: 'Adjust directly in KBC Mobile', icon: 'cart' },
-  { id: 'quiz', factor: 'exposure', boost: 20, coins: 2, title: 'Take the 3-minute phishing quiz', sub: 'Can you spot the fake SMS?', icon: 'chat' },
-  { id: 'privacy', factor: 'exposure', boost: 25, coins: 2, title: 'Make your social profiles private', sub: 'Guide for Instagram, Facebook & TikTok', icon: 'people' },
-  { id: 'updates', factor: 'devices', boost: 25, coins: 2, title: 'Turn on automatic updates', sub: 'Phone and laptop · 2 min', icon: 'phone' },
-  { id: 'wifi', factor: 'devices', boost: 25, coins: 2, title: "Change your router's default password", sub: 'Guide for Telenet, Proximus & Orange', icon: 'wifi' },
+  { id: 'pwmanager', factor: 'passwords', boost: 45, title: 'Start using a password manager', sub: '5 min · step-by-step guide', icon: 'key' },
+  { id: 'cardlimit', factor: 'shopping', boost: 25, title: 'Lower your online card limit', sub: 'Adjust directly in KBC Mobile', icon: 'cart' },
+  { id: 'quiz', factor: 'exposure', boost: 20, title: 'Take the 3-minute phishing quiz', sub: 'Can you spot the fake SMS?', icon: 'chat' },
+  { id: 'privacy', factor: 'exposure', boost: 25, title: 'Make your social profiles private', sub: 'Guide for Instagram, Facebook & TikTok', icon: 'people' },
+  { id: 'updates', factor: 'devices', boost: 25, title: 'Turn on automatic updates', sub: 'Phone and laptop · 2 min', icon: 'phone' },
+  { id: 'wifi', factor: 'devices', boost: 25, title: "Change your router's default password", sub: 'Guide for Telenet, Proximus & Orange', icon: 'wifi' },
 ]
 
 export type Article = { id: string; factor: FactorId; title: string; meta: string; icon: string; bg: string; tag?: string; body: string[] }
@@ -152,8 +152,8 @@ export type PlanId = keyof typeof PLANS
 
 export const COVERAGE = [
   { icon: 'cart', title: 'Online purchase fraud', sub: 'Webshop never delivers or is fake', limit: '5 000 EUR', family: false },
-  { icon: 'mail', title: 'Phishing & account takeover', sub: 'Money stolen via fake messages or calls', limit: '10 000 EUR', family: false },
-  { icon: 'id', title: 'Identity theft', sub: 'Legal help and new documents', limit: 'Included', family: false },
+  { icon: 'mail', title: 'Phishing & account takeover', sub: 'Money stolen via fake messages or calls', limit: '10 000 EUR', family: false, breach: true },
+  { icon: 'id', title: 'Identity theft', sub: 'Legal help and new documents', limit: 'Included', family: false, breach: true },
   { icon: 'cloud', title: 'Data recovery', sub: 'Ransomware or a hacked device', limit: '1 500 EUR', family: false },
   { icon: 'people', title: 'Cyberbullying support', sub: 'Psychological help for your children', limit: 'Included', family: true },
 ]
@@ -168,13 +168,36 @@ function answerLabel(a: Answers, qid: string) {
 const ESTIMATE = 55
 const BASE: Partial<Record<FactorId, number>> = { login: 92, shopping: 60 }
 
-export function computeFactors(answers: Answers, doneActions: string[]): Record<FactorId, number> {
+export type BreachStep = { id: string; factor: FactorId; penalty: number; title: string; sub: string; cta: string }
+
+export const BREACH = {
+  name: 'StyleHub',
+  kind: 'Online fashion store',
+  date: '12 September 2026',
+  foundOn: '24 September 2026',
+  accounts: '2,3 million',
+  leaked: [
+    { icon: 'mail', label: 'Email address' },
+    { icon: 'phone', label: 'Phone number' },
+    { icon: 'id', label: 'Name & home address' },
+    { icon: 'key', label: 'Password (weakly encrypted)' },
+  ],
+  steps: [
+    { id: 'change', factor: 'passwords', penalty: 20, title: 'Change your StyleHub password', sub: "Or delete your account if you don't use it anymore.", cta: "I've changed it" },
+    { id: 'reused', factor: 'passwords', penalty: 15, title: 'Change it wherever you reused it', sub: 'Start with your email, social media and other webshops.', cta: 'Done' },
+    { id: '2fa', factor: 'login', penalty: 10, title: 'Turn on 2-step verification for your email', sub: 'Then a leaked password alone is no longer enough to get in.', cta: "It's on" },
+    { id: 'phishing', factor: 'exposure', penalty: 15, title: 'Be alert for messages about StyleHub', sub: 'Scammers use leaked details to make phishing look real. StyleHub and KBC will never ask for codes.', cta: 'Got it' },
+  ] as BreachStep[],
+}
+
+export function computeFactors(answers: Answers, doneActions: string[], resolvedBreach: string[]): Record<FactorId, number> {
   const out = {} as Record<FactorId, number>
   for (const f of FACTORS) {
     const vals = QUESTIONS.filter(q => q.factor === f.id).map(q => answers[q.id] === undefined ? ESTIMATE : q.options[answers[q.id]].value)
     if (BASE[f.id] !== undefined) vals.push(BASE[f.id]!)
     const boost = ACTIONS.filter(a => a.factor === f.id && doneActions.includes(a.id)).reduce((s, a) => s + a.boost, 0)
-    out[f.id] = Math.min(100, Math.round(vals.reduce((s, v) => s + v, 0) / vals.length) + boost)
+    const penalty = BREACH.steps.filter(s => s.factor === f.id && !resolvedBreach.includes(s.id)).reduce((s, x) => s + x.penalty, 0)
+    out[f.id] = Math.max(0, Math.min(100, Math.round(vals.reduce((s, v) => s + v, 0) / vals.length) + boost - penalty))
   }
   return out
 }

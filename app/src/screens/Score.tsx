@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import BreachAlert from '../components/BreachAlert'
 import { Icon, NavBar, Sheet, TopBar } from '../components/ui'
 import {
   ACTIONS, ARTICLES, FACTORS, PLANS, actionPoints, discountFor, eur, factorLevel, percentile, scoreLabel,
@@ -39,7 +40,7 @@ export default function Score() {
   const open = ACTIONS.filter(a => !p.doneActions.includes(a.id) && p.factors[a.factor] < 100)
     .sort((a, b) => p.factors[a.factor] - p.factors[b.factor])
   const done = ACTIONS.filter(a => p.doneActions.includes(a.id))
-  const possible = Math.min(100 - p.score, open.reduce((s, a) => s + actionPoints(a, p.factors), 0))
+  const possible = Math.min(100 - p.score, p.breachImpact + open.reduce((s, a) => s + actionPoints(a, p.factors), 0))
   const articles = [...ARTICLES].sort((a, b) => p.factors[a.factor] - p.factors[b.factor])
   const discount = discountFor(p.score)
 
@@ -56,6 +57,7 @@ export default function Score() {
 
       <main className="screen" key={tab}>
         <div className="pad">
+          {tab !== 'tips' && <BreachAlert />}
           {tab === 'overview' && (
             <>
               <div className="hero">
@@ -113,7 +115,7 @@ export default function Score() {
                     <button className="action" key={a.id} onClick={() => setAction(a)}>
                       <span className="fi"><Icon name={a.icon} /></span>
                       <div className="fb">{a.title}<small>{a.sub}</small></div>
-                      <div className="pts">+{actionPoints(a, p.factors)}<small>+{a.coins} KTC</small></div>
+                      <div className="pts">+{actionPoints(a, p.factors)}</div>
                     </button>
                   ))}
                 </div>
@@ -126,7 +128,7 @@ export default function Score() {
                       <div className="action done" key={a.id}>
                         <span className="check"><Icon name="ok" size={14} /></span>
                         <div className="fb">{a.title}</div>
-                        <div className="pts">+{a.coins} KTC</div>
+                        
                       </div>
                     ))}
                   </div>
@@ -199,7 +201,7 @@ export default function Score() {
           <>
             <span className="fi lg"><Icon name={action.icon} size={28} /></span>
             <h3>{action.title}</h3>
-            <p className="sheet-p">{action.sub}. Complete this tip to raise your score by <b>+{actionPoints(action, p.factors)} points</b> and earn <b>{action.coins} Kate Coins</b>.</p>
+            <p className="sheet-p">{action.sub}. Complete this tip to raise your score by <b>+{actionPoints(action, p.factors)} points</b>.</p>
             <button className="btn" onClick={() => { p.completeAction(action.id); setAction(null) }}>I've done this</button>
             <button className="btn ghost" style={{ marginTop: 10 }} onClick={() => setAction(null)}>Later</button>
           </>

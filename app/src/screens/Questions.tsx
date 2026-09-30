@@ -58,7 +58,7 @@ export default function Questions() {
 
           {typing && <div className="msg"><KateBadge size={24} /><div className="bub typing"><i /><i /><i /></div></div>}
           {done && !typing && (
-            <div className="msg in"><KateBadge size={24} /><div className="bub">That's it! 🎉 Your score is ready and you've earned <b>5 Kate Coins</b>.</div></div>
+            <div className="msg in"><KateBadge size={24} /><div className="bub">That's it! 🎉 Your score is ready. Let's have a look.</div></div>
           )}
         </div>
 

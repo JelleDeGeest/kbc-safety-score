@@ -57,7 +57,6 @@ export default function Intro() {
 
           <div className="privacy"><Icon name="lock" size={18} style={{ flex: 'none' }} />Your answers are only used to calculate your score and personalise tips. You can change or delete them anytime in your profile settings.</div>
           <Link className="btn" to="/cyber/questions">{left === QUESTIONS.length ? "Let's go · 2 min" : left ? `Continue · ${left} left` : 'Review my answers'}</Link>
-          <div className="center" style={{ margin: '12px 0 4px' }}><span className="pill coin">+5 Kate Coins when you finish</span></div>
           {left > 0 && (
             <div className="center" style={{ margin: '10px 0 8px' }}>
               <button className="link" onClick={() => { skip(); nav('/cyber/score', { replace: true }) }}>Skip and see an estimated score</button>

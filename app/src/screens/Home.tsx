@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import BreachAlert from '../components/BreachAlert'
 import { Icon, NavBar } from '../components/ui'
 import { eur, scoreLabel } from '../data'
 import { useProfile } from '../state'
@@ -35,12 +36,13 @@ export default function Home() {
 
         <div className="foryou">
           <h3 style={{ fontWeight: 600 }}>For you</h3>
+          <BreachAlert compact />
           {hasScore ? (
             <Link to="/cyber/score" className="feature-tip">
               <span className="pill" style={{ background: 'rgba(255,255,255,.2)', color: '#fff' }}>Cyber Safety Score</span>
               <h4>{score}/100 · {scoreLabel(score)}</h4>
               <div className="mini-meter"><i style={{ width: `${score}%` }} /></div>
-              <p>See how to raise your score and earn Kate Coins.</p>
+              <p>See how you can raise your score.</p>
               <span className="btn">View my score</span>
               <Icon name="shield" size={96} className="shield" />
             </Link>
@@ -48,7 +50,7 @@ export default function Home() {
             <Link to="/cyber" className="feature-tip ring-pulse">
               <span className="pill new">New</span>
               <h4>How cyber-safe are you?</h4>
-              <p>Get your personal Cyber Safety Score in 2 minutes and earn 5 Kate Coins.</p>
+              <p>Get your personal Cyber Safety Score in just 2 minutes.</p>
               <span className="btn">Check my score</span>
               <Icon name="shield" size={96} className="shield" />
             </Link>

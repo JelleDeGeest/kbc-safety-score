@@ -1,12 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { ACTIONS, QUESTIONS, computeFactors, scoreOf, type Answers, type FactorId, type PlanId } from './data'
+import { BREACH, QUESTIONS, computeFactors, scoreOf, type Answers, type FactorId, type PlanId } from './data'
 
 type Policy = { plan: PlanId; premium: number; since: string }
-type Profile = { answers: Answers; skipped: boolean; doneActions: string[]; coins: number; policy: Policy | null }
+type Profile = { answers: Answers; skipped: boolean; doneActions: string[]; resolvedBreach: string[]; coins: number; policy: Policy | null }
 
-const KEY = 'kbc-cyber-profile-v1'
-const EMPTY: Profile = { answers: {}, skipped: false, doneActions: [], coins: 10, policy: null }
-const COMPLETE_REWARD = 5
+const KEY = 'kbc-cyber-profile-v2'
+const EMPTY: Profile = { answers: {}, skipped: false, doneActions: [], resolvedBreach: [], coins: 10, policy: null }
 const POLICY_REWARD = 10
 
 function load(): Profile {
@@ -23,9 +22,12 @@ type Ctx = Profile & {
   hasScore: boolean
   factors: Record<FactorId, number>
   score: number
+  breachOpen: boolean
+  breachImpact: number
   answer: (qid: string, idx: number) => void
   skip: () => void
   completeAction: (id: string) => void
+  toggleBreachStep: (id: string) => void
   buyPolicy: (plan: PlanId, premium: number) => void
   reset: () => void
 }
@@ -40,26 +42,24 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   }, [p])
 
   const value = useMemo<Ctx>(() => {
-    const completed = QUESTIONS.every(q => p.answers[q.id] !== undefined)
-    const factors = computeFactors(p.answers, p.doneActions)
+    const factors = computeFactors(p.answers, p.doneActions, p.resolvedBreach)
+    const score = scoreOf(factors)
+    const allResolved = BREACH.steps.map(s => s.id)
     return {
       ...p,
-      completed,
-      hasScore: completed || p.skipped,
+      completed: QUESTIONS.every(q => p.answers[q.id] !== undefined),
+      hasScore: QUESTIONS.every(q => p.answers[q.id] !== undefined) || p.skipped,
       factors,
-      score: scoreOf(factors),
-      answer: (qid, idx) => setP(prev => {
-        const answers = { ...prev.answers, [qid]: idx }
-        const nowDone = QUESTIONS.every(q => answers[q.id] !== undefined)
-        const wasDone = QUESTIONS.every(q => prev.answers[q.id] !== undefined)
-        return { ...prev, answers, coins: prev.coins + (nowDone && !wasDone ? COMPLETE_REWARD : 0) }
-      }),
+      score,
+      breachOpen: BREACH.steps.some(s => !p.resolvedBreach.includes(s.id)),
+      breachImpact: scoreOf(computeFactors(p.answers, p.doneActions, allResolved)) - score,
+      answer: (qid, idx) => setP(prev => ({ ...prev, answers: { ...prev.answers, [qid]: idx } })),
       skip: () => setP(prev => ({ ...prev, skipped: true })),
-      completeAction: id => setP(prev => prev.doneActions.includes(id) ? prev : {
+      completeAction: id => setP(prev => prev.doneActions.includes(id) ? prev : { ...prev, doneActions: [...prev.doneActions, id] }),
+      toggleBreachStep: id => setP(prev => ({
         ...prev,
-        doneActions: [...prev.doneActions, id],
-        coins: prev.coins + (ACTIONS.find(a => a.id === id)?.coins ?? 0),
-      }),
+        resolvedBreach: prev.resolvedBreach.includes(id) ? prev.resolvedBreach.filter(x => x !== id) : [...prev.resolvedBreach, id],
+      })),
       buyPolicy: (plan, premium) => setP(prev => ({
         ...prev,
         policy: { plan, premium, since: new Date().toISOString() },
