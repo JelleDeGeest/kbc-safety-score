@@ -1,0 +1,43 @@
+app/src/index.css
+  s_0ecb15b90864aa::t_8470c29a543225 237-261
+app/src/App.tsx
+  s_0ecb15b90864aa::t_75c26fc1df63ec 4,44
+app/src/screens/Home.tsx
+  s_0ecb15b90864aa::t_4a480898c89723 45,53
+  s_0ecb15b90864aa::t_75c26fc1df63ec 2,39
+app/src/data.ts
+  s_0ecb15b90864aa::t_75c26fc1df63ec 155-156
+  s_0ecb15b90864aa::t_5a4c1e33f8b468 171-193,199-200
+  s_0ecb15b90864aa::t_4a480898c89723 90,94-99
+app/src/state.tsx
+  s_0ecb15b90864aa::t_940f3d4d8eeadd 2,5,7-8,25-26,30,45-47,50-51,53-56,58-59,61-62
+app/src/assets/sprite.svg
+  s_0ecb15b90864aa::t_ac8a416c0085f0 19-20
+app/src/screens/Breach.tsx
+  s_0ecb15b90864aa::t_07daa4858a9b2e 1-90
+app/src/screens/Insurance.tsx
+  s_0ecb15b90864aa::t_75c26fc1df63ec 4,27,54
+app/src/screens/Score.tsx
+  s_0ecb15b90864aa::t_75c26fc1df63ec 3,43,60
+  s_0ecb15b90864aa::t_4a480898c89723 118,131,204
+app/src/screens/Questions.tsx
+  s_0ecb15b90864aa::t_4a480898c89723 61
+app/src/components/BreachAlert.tsx
+  s_0ecb15b90864aa::t_805579b3c9ff4b 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "83b441fb6bc385f47e3341ee19f66cca6842d842",
+  "prompts": {},
+  "sessions": {
+    "s_0ecb15b90864aa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ebcb984d-9769-4725-8dea-f6c1bfdc84e4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Jelle De geest <jelledegeest@Jelles-MacBook-Pro.local>"
+    }
+  }
+}
