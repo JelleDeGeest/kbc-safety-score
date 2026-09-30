@@ -1,0 +1,61 @@
+src/App.tsx
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-54
+index.html
+  s_0ecb15b90864aa::t_d884217e2cb033 1-22
+mockup/index.html
+  s_0ecb15b90864aa::t_d884217e2cb033 3-26,32,44-45,58-62
+  s_0ecb15b90864aa::t_348dc042220da2 56-57
+vite.config.ts
+  s_0ecb15b90864aa::t_d884217e2cb033 1-59
+src/screens/Insurance.tsx
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-79
+src/index.css
+  s_0ecb15b90864aa::t_f25dfb00426d8c 1-269
+.gitignore
+  s_0ecb15b90864aa::t_51c61b68f40f2a 1-26
+README.md
+  s_0ecb15b90864aa::t_6ce0591f032e6b 1-165
+src/screens/Breach.tsx
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-90
+package.json
+  s_0ecb15b90864aa::t_d884217e2cb033 2,4,9-10,12,30-31
+  s_0ecb15b90864aa::t_4ae0bde1c0ea09 1,3,5-8,11,13-29,32
+src/screens/Home.tsx
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-69
+src/screens/Intro.tsx
+  s_0ecb15b90864aa::t_f25dfb00426d8c 3,7,57-71
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-2,4-6,8-56,72-84
+src/screens/Questions.tsx
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-76
+src/state.tsx
+  s_0ecb15b90864aa::t_f25dfb00426d8c 1-83
+src/data.ts
+  s_0ecb15b90864aa::t_f25dfb00426d8c 1-260
+src/screens/Score.tsx
+  s_0ecb15b90864aa::t_f25dfb00426d8c 44-46,66-69
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-43,47-65,70-239
+src/screens/Done.tsx
+  s_0ecb15b90864aa::t_eda2eecc5fc780 1-33
+scripts/screenshots.mjs
+  s_0ecb15b90864aa::t_348dc042220da2 2,51-52,63,65-66,73-74,77
+  s_0ecb15b90864aa::t_a57fa4e7324ae3 1,3-41,43-50,53-62,64,67-72,75-76,78-80
+  s_0ecb15b90864aa::t_b37ffcd1bb34b8 42
+package-lock.json
+  s_0ecb15b90864aa::t_f4e2f65e06648e 21,24-25,2008-2042,2775-2781,2849-2859,2903-2912,2930-2955,2995-3007,3051-3065,3118-3202,3216-3225,3239-3251,3286-3295,3374-3422,3509-3518,3637-3651,3662-3668,3707-3723,3892-3948,3979-4009,4017-4023,4048-4057,4116-4128,4257-4266,4313-4328,4347-4361,4508-4535,4558-4567,4735-4744,4798-4807,5422-5448,5475-5481,5508-5517,5572-5581,5650-5683,5735-5741,5814-5890,6052-6061,6422-6432,6443-6472,6528-6554,6658-6670,6694-6731,6780-6789,6807-6826,6917-6923,7182-7210,7536-7592,7599-7648
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "230a47ad6bff5493b916b122fe3417f29d8dd863",
+  "prompts": {},
+  "sessions": {
+    "s_0ecb15b90864aa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ebcb984d-9769-4725-8dea-f6c1bfdc84e4",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Jelle De geest <jelledegeest@Jelles-MacBook-Pro.local>"
+    }
+  }
+}
